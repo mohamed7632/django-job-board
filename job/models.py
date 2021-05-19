@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 JOB_TYPE=(
     ('full time','full time'),
     ('part time','part time')
@@ -13,7 +14,12 @@ class Job(models.Model):
       vacancy=models.IntegerField(default=1)
       salary=models.IntegerField(default=0)
       experience=models.IntegerField(default=1)
+      category=models.ForeignKey('Category',on_delete=models.CASCADE)
 
       def __str__(self):
           return self.title
-   
+
+class Category(models.Model):
+    name=models.CharField(max_length=20)
+    def __str__(self):
+        return self.name
